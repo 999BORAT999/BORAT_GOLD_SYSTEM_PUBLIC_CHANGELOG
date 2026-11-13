@@ -15,6 +15,8 @@ The latest demo-candidate update focuses on reliability and diagnostics:
 - Clarified AutoTrader and Brain Office counts in the interface.
 - Refined Telegram PIN timeout handling and period/status messages.
 
+**Historical DEMO result (reported in the audit snapshot):** the weekly summary showed **+166.88 EUR**. The report did not specify the exact week boundaries. This is a historical demo-account figure, is not attributed to Hotfix 12, and is not a forecast or guarantee of future results.
+
 **Status:** DEMO candidate only. This update is not a LIVE authorization or a claim of full acceptance. Performance targets and several interactive terminal, replay, and end-to-end demo acceptance checks remain outstanding. Historical demo results are not a guarantee of future performance.
 
 ## Publishing policy

@@ -49,3 +49,48 @@ This update focuses on reliability and diagnostics:
 Offline native regressions cover targeted cases only. One S8 journal-load test processed 133 of 150 planned inputs and missed three load criteria. Live DEMO acceptance and performance thresholds remain pending.
 
 **Status:** DEMO candidate only; not a LIVE authorization. No profitability claim is made.
+
+## 2026-11-22 — CP59.1 V1.2.25 DEMO candidate
+
+This update focuses on durable event handling, health visibility, and bounded maintenance:
+
+- Refined HEALTH_ALERT change handling and recovery checks so routine packet changes are less likely to create repeated equivalent notifications.
+- Preserved explicit uncertainty for sends without a confirmed receipt; uncertain items are not treated as delivered or blindly retried.
+- Improved S8/Lab GAP aggregation and restart reconciliation to reduce duplicate continuity facts while retaining historical gaps that cannot be proven.
+- Added fairer health processing around the raw-data frontier so one not-yet-mature row does not indefinitely block other eligible channels.
+- Added source attribution for newly verified rows without inventing provenance for historical rows that lack it.
+- Strengthened Radar's durable outbox and same-event revision repair, with commit-before-ACK ordering and bounded failure reporting.
+- Added multi-phase IPC acknowledgement and durable cursor checks tied to a specific event and source identity.
+- Separated read-only history retrieval work from trading actions.
+- Made selected Brain Office TOP, Catalog, and Feed work more incremental and bounded.
+- Improved macro-endpoint diagnostics and retry behavior; missing exact market data remains UNKNOWN instead of being replaced with stale data.
+- Corrected a Brain Office telemetry check that could classify uninitialized string slots as overflow; targeted native regressions and source review cover this narrow fix.
+- Expanded stage-level timing and ownership diagnostics to make slow work easier to isolate.
+
+The package contains targeted offline regressions and a later repair set, but the recorded whole-DEMO window was **NOT_PASS**: EA1 copies peaked at 144.417 ms, EA1 timer at 2,555.612 ms, EA2 p95 upper at 215–230 ms, EA2 maximum at 946.537–958.288 ms, and the full TOP work at 843,250 ms. These exceeded the documented acceptance thresholds. Some old data gaps and a missing exact macro endpoint remain unresolved.
+
+**Status:** private DEMO candidate only; `release_ready=false`, live acceptance remains pending, ARM stays manual/off, and this is not LIVE authorization. No profitability claim is made.
+
+## 2026-11-22 — CP59.1 V1.2.26 DEMO package candidate
+
+This update focuses on recovery correctness, bounded processing, and stronger evidence handling:
+
+- Added crash/restart reconciliation for a derived GAP projection that may have committed before its companion runtime checkpoint was updated.
+- Required owner, run, source hash, checkpoint, and lifecycle evidence before retiring or adopting a projected OPEN state.
+- Kept unobserved exits, points, excursions, and trading costs UNKNOWN instead of synthesizing historical outcomes.
+- Separated the dashboard's current ARM-blocking explanation from older readiness messages; the presentation change does not arm trading or reset risk controls.
+- Improved macro worker history for exact-bar recovery and failure transitions, while keeping missing market endpoints explicitly UNKNOWN.
+- Reduced repeated EA1 journal/checkpoint serialization only when the complete serialized source state is byte-identical.
+- Added EA1 callback/timer stage diagnostics; isolated microbenchmark improvements are not presented as whole-terminal latency acceptance.
+- Avoided repeated EA2 persistence writes for an already verified identical payload while retaining mandatory first-write, durable commit, and ACK ordering.
+- Added fairer paper-cost queue servicing and separate counts for eligible, covered, waiting-model, and unprovable work.
+- Preserved explicit UNKNOWN commission/cost states when no approved model or complete cycle evidence exists.
+- Distinguished empty, missing, and failed S-scanner reads; missing ready packets require matching durable completion and commit evidence.
+- Restricted one LIVE-to-shadow replay adapter to exact source/run/symbol/quote identity and validated one policy against a frozen native fixture; all-policy parity remains open.
+- Added dispatch-keyed replay acknowledgements and recovery across restart/interleaving cases.
+- Added TOP/catalog progress safeguards and clearer catalog status accounting; yellow statuses are not counts of confirmed software defects.
+- Strengthened release-guard evidence checks and corrected target-count validation for the 13-program certificate.
+
+**Acceptance limits:** the package was not installed, deployment authorization remains false, and no post-install one-hour live acceptance was recorded. Whole-system EA1/EA2 performance limits and the full TOP sweep target remain unproven. Historical gross points are not validated net monetary profit, and no weekly profitability claim is made.
+
+**Status:** private DEMO package candidate only; not LIVE authorization.

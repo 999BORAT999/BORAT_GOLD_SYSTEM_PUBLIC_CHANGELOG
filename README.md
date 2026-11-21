@@ -22,3 +22,18 @@ The latest demo-candidate update focuses on reliability and diagnostics:
 ## Publishing policy
 
 Future entries will be added as reviewed, summary-only commits. No private source code, package archives, credentials, account or broker identifiers, or verbatim private audit logs should be published in this repository.
+
+## 2026-11-21 — CP59.1 V1.2.23 DEMO candidate
+
+This update focuses on reliability, processing efficiency, and clearer diagnostics:
+
+- Split selected startup, history-recovery, and analysis work into bounded steps.
+- Improved durable handling and recovery of queued analysis events.
+- Reduced repeated database work in exit-analysis and health-reporting paths.
+- Preserved the ordering and context of incoming market-data events for analysis.
+- Improved evidence for completed negative research evaluations without changing trading rules.
+- Clarified selected readiness and file-publication status handling.
+
+The package includes offline regression and failure-recovery test evidence. These checks do not constitute full live-environment acceptance. Live DEMO timing, day-long health, and end-to-end helper acceptance remain outstanding.
+
+**Status:** DEMO candidate only; not a LIVE authorization or a claim of full acceptance. No performance or profitability claim is made in this entry.

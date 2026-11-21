@@ -4,23 +4,179 @@ This repository publishes curated, high-level summaries of project updates. The 
 
 This public changelog does not contain source files, downloadable builds, credentials, account identifiers, broker records, or private repository links. Each entry is reviewed and written specifically for public sharing; private release notes are not copied here verbatim.
 
+## 2026-10-25 — CP58 R2 package candidate
+
+CP58 R2 established the first complete versioned handoff for the V1.1.118 / CP58 line. This was a package and integration milestone, not a new strategy-performance certification.
+
+- Bundled application sources and prepared binaries with a canonical deployment payload, research modules, project documentation, provenance records, and test evidence.
+- Added a group of new AutoTrader records in a non-executing shadow state by default; the package also documented the existing research variants and capacity model. Brain Office was not part of this release.
+- Included integrity and installer checks designed to validate the package before copying the defined deployment files and to retain a recovery copy.
+- Recorded 32/32 release-build checks and 10/10 installer-contract checks. Separate evidence included 47 MQL fixture checks, 22 Python contract checks, and 24 local database checks.
+- Those checks were performed in controlled environments. The package was not installed into the owner's live terminal; full market replay, broker fill/reject coverage, long-duration performance, and profitability were not established.
+
+**Status:** archived DEMO handoff; not LIVE authorization or a profit claim.
+
+## 2026-10-26 — CP58 R3 package revision
+
+R3 republished the full CP58 handoff with stronger package-level consistency checks. It is a package revision, not a separate strategy release.
+
+- Preserved the approved 141-file deployment payload and confirmed that its recorded file digests matched the prior accepted package contents.
+- Retained the application, research, project-history, guard, and verification material needed to reproduce the handoff; no new trading algorithm change is claimed for R3.
+- Recorded 48/48 package checks and a successful installer run in a temporary test target. The test target was isolated; the owner's MT5 installation was not changed.
+- Earlier integration receipts remained reference evidence rather than a new R3 live-market test.
+- Live installation, broker order scenarios, long-duration load, and strategy profitability remained unverified.
+
+**Status:** package-integrity revision only; not a live acceptance.
+
+## 2026-10-26 — CP58 R4 recovery hotfix
+
+R4 addressed a narrowly defined recovery case in which a valid empty initial state could be rejected and leave selected research modules waiting. The underlying origin of the original empty-state record was not established.
+
+- Allowed recovery only for the specifically validated empty-start condition; other empty, malformed, or conflicting state remains blocked rather than being accepted broadly.
+- Preserved the original state record for audit and avoided replacing it with a synthetic timestamp or overwriting prior evidence.
+- Improved diagnostics for storage failures while preserving the distinction between an actual open position and an unavailable or uncertain state.
+- Left strategy entry/exit rules, filters, identities, risk settings, and default shadow behavior unchanged.
+- R4 changed a small, defined portion of the deployment payload; the remaining files were checked against the prior package. Targeted evidence included 57 contract tests, 27 isolated MQL checks, successful host/popup compilation, and an independent focused review with no critical or major findings.
+- Testing used isolated local data. No live account, broker order, full market replay, or long-running performance acceptance was performed.
+
+**Status:** targeted recovery correction; not a LIVE or profitability certification.
+
+## 2026-10-28 — CP58 R5 infrastructure update
+
+R5 concentrated on operator settings, durable risk and order records, research data handling, export reliability, and safer installation/rollback. The release notes state that the established strategy entry/exit logic was retained, with persistent risk accounting identified as the intentional behavior change.
+
+- Updated the settings interface with clearer global/per-module views, draft/apply/reset handling, and bounded display controls.
+- Made peak/drawdown and emergency blocks persist across restart. When required risk state cannot be trusted, new entries remain blocked until the owner initializes or verifies the reference; apply, restart, or arm actions do not silently clear the block.
+- Improved order/event bookkeeping and recovery so records are tied to the corresponding position evidence. Uncertain historical order outcomes remain uncertain instead of being reconstructed as facts.
+- Added provenance-aware research storage and a separate export workflow using a consistent database snapshot, with explicit partial-versus-complete export status.
+- Strengthened package verification, backups, rollback checks, and recognized-installation handling without modifying retained user databases or terminal profiles.
+- Evidence recorded 116 automated test cases and 229 native fixture checks, along with compilation and focused infrastructure review. The live terminal deployment status remained not installed; long-duration performance, full market replay, and broker order scenarios remained open.
+
+**Status:** infrastructure and workflow update; not LIVE authorization or a profitability claim.
+
+## 2026-11-02 — CP58 R6 DEMO package (owner-exception status)
+
+R6 expanded research integration and state restoration while documenting where original strategy behavior, virtual research, and broker execution must remain distinct.
+
+- Expanded the catalogue of research and shadow integrations and improved precision and decoding for selected persisted states, caches, and profiles.
+- Restored selected original modules and added separate research-cycle handling; where pricing, quantity, fees, feed, or native parity evidence was missing, the result remained explicitly unknown or not run.
+- Kept signal studies and virtual exit analysis separate from confirmed broker trades; a research signal is not described as an order fill.
+- Improved durable exit-analysis/database handling and persistence checks, including restart-related fixtures, while leaving broader history-route and whole-host acceptance as separate gates.
+- Added two infrastructure hotfix iterations to reduce repeated encoding work and correct selected routing behavior without changing the recorded file format or integrity checks.
+- Package integrity was checked against its internal manifest. The release decision retained an owner-exception status, and important gates remained open: native parity, complete market replay, recovery under real terminal restarts, performance/canary monitoring, migration rollback, and final clean-install acceptance.
+
+**Status:** constrained DEMO package with explicit owner exceptions; no live-performance or profitability claim.
+
+## 2026-11-05 — CP58 R7 execution separation
+
+R7 introduced a clearer separation between the component responsible for AutoTrader/Radar operation and a separate non-trading research worker.
+
+- Kept trading decisions, order handling, risk protections, and operational checkpoints in the primary execution component; research and exit-analysis work ran in a separate worker without broker-order authority.
+- Separated database responsibilities and used a durable event handoff with identity checks and acknowledgement only after the receiving side recorded the event.
+- Preserved pending events across interruption and avoided renumbering or discarding unacknowledged facts.
+- Recorded downtime as an explicit research coverage gap; cycles crossing a gap were marked unreliable instead of being filled in with invented outcomes or counted as ordinary wins/losses.
+- Restored and checked module identities and operating modes, while keeping existing halt conditions intact. A recovery test delivered 9,379 queued records and reconciled both sides through the same confirmed cursor.
+- The acceptance record showed 136 passing checks out of 141 recorded; five earlier architecture tests were explicitly obsolete, not counted as passes. Both components compiled with zero errors/warnings in the recorded builds.
+- The 200 ms tick and 250 ms timer targets were not met, and the one-hour queue observation was cancelled. ARM remained off for the final test; no broker trade or full live acceptance is claimed.
+
+**Status:** execution/data-boundary update; key latency and live acceptance gates remained open.
+
+## 2026-11-06 — CP58 R8 DEMO candidate
+
+R8 combined execution safeguards, research-data quality work, health reporting, and runtime diagnostics. Its release notes distinguish implemented code from work explicitly deferred to R8.1.
+
+- Improved recovery and halt handling so selected temporary I/O failures could be retried without erasing a genuine safety halt; added checks before releasing uncertain exposure states.
+- Strengthened emergency behavior, pending-order reconciliation, and daily/weekly risk accounting. Uncertain positions remain a blocking condition rather than being omitted from risk review.
+- Added clearer operator-close and weekend-close reasons while retaining the existing strategy and order-management boundaries.
+- Added cost fields for new virtual exit records while leaving unsupported historical costs unknown. Missing spread, time, or fee evidence is not reconstructed as a verified result.
+- Improved research timestamps, health summaries, selected module readiness explanations, macro/news data status, and bounded notification behavior. Missing or stale inputs remain visible as missing/stale rather than being silently substituted.
+- Added helper and backup diagnostics, capacity/path safeguards, and clearer environment checks. Some automation and external-service connections still required owner setup and had not been live-tested.
+- Compiled and audited package contents, but live installation, a full DEMO week, enabled-order scenarios, complete health coverage, and external-message acceptance remained open. Several startup/timer spikes and research warm-up gaps were specifically left for further observation or R8.1.
+
+**Status:** DEMO candidate; package and targeted checks are not equivalent to full runtime acceptance.
+
+## 2026-11-06 — CP58 R8 Hotfix 1
+
+This hotfix focused on state recovery, explicit risk handling, health freshness, and installer/verifier safeguards. It did not introduce new strategy rules.
+
+- Preserved the first safety-halt reason separately from later diagnostic messages, so a restart or recovery decision could not accidentally conceal a serious original block.
+- Persisted operator-close and weekend-close reasons before attempting the close, retaining the original reason through retries and restarts.
+- Changed unreadable position/order identity from a silent omission into an explicit unknown-risk block for new entries.
+- Improved health-summary time checks and excluded selected retired items from active coverage warnings while keeping uncertain data visibly uncertain.
+- Hardened installer and package verification around target identity, backup/recovery evidence, partial rollback, and files that must not be overwritten or removed blindly.
+- Targeted offline validation included 58 functional regressions, 107 safety checks, health and messaging fixtures, and isolated installer/verifier scenarios. Seven compiled targets reported zero errors and warnings; these are scoped tests, not live broker or network delivery proof.
+- A later health-queue follow-up was documented separately and is not represented here as included in this hotfix archive.
+
+**Status:** narrow reliability hotfix; live installation, full-day health, external messaging, and broker acceptance remained outstanding.
+
+## 2026-11-07 — CP58 R8.1 package
+
+R8.1 extended R8/Hotfix1 across execution scheduling, research/exit analysis, data readiness, installation, and documentation. It retained the frozen core strategy and compatibility identity; the release was not a live-terminal acceptance.
+
+- Warmed selected research inputs from available historical ticks after worker startup and used time-bounded history for delayed evaluations, addressing cases where a cold in-memory buffer caused an evaluation to be unavailable. The live restart acceptance target remained open.
+- Reduced redundant exit-analysis work by consolidating an over-sized set of near-duplicate policies into a smaller documented set and adding a few distinct horizons; live load reduction was still to be measured.
+- Improved multi-part position visibility and close/recovery safeguards, requiring exposure evidence before releasing a block. Separate live multi-part order acceptance was not performed.
+- Reordered execution work so confirmed order and stop-protection tasks are handled ahead of non-executing shadow analysis; timing targets were documented but not established in a live market run.
+- Added cautious virtual-cost estimation and GAP synchronization. Missing lot, fee, time, or price evidence remains unknown rather than being treated as net profit.
+- Improved readiness explanations for selected modules, macro/news data status, time mapping, and health/latency monitoring. Historical records were not rewritten to manufacture missing coverage.
+- Added safer fresh-install/upgrade planning, retention and backup rules, generated module documentation, and clearer version identity while preserving existing state.
+- The recorded offline evidence included 8/8 compilation targets with zero errors/warnings and extensive source/package checks. The package was not installed; clean-machine startup, full-day acceptance, live broker handling, and a full DEMO week remained pending.
+
+**Status:** final R8.1 package handoff, not proof of live acceptance, profitability, or LIVE authorization.
+
+## 2026-11-07 — CP59 BO1.0 / V1.2.0 Brain Office foundation
+
+CP59 introduced the first Brain Office component and a broad catalogue/analytics foundation while preserving compatibility with the prior execution and research state. The headline catalogue coverage is not a count of strategies proven profitable or approved for live execution.
+
+- Added a separate Brain Office interface and data layer for module catalogue, status, analysis, comparison, and export. The design distinguishes verified broker facts from virtual research and incomplete evidence.
+- Built the catalogue and adapter framework in stages. The final package described 316 catalogue identities with supported integration paths; this did not mean all entries were active or had passed live parity.
+- Added guarded paths for adding modules, risk/exposure checks, state restoration, and identity/version validation. Incomplete adapters remain blocked or explicitly unsupported rather than being presented as ready.
+- Added research-feed, open-state, version, and acknowledgement records with separate write responsibilities. Read-only research sources and identity-checked seed handling were used to avoid silently accepting mismatched historical data.
+- Added dashboard periods, filters, summaries, comparison views, and export support, plus incremental TOP/exit-analysis work. TOP/exit numerical outputs were explicitly marked unvalidated pending real data and parity evidence.
+- Added safeguards for event cost and nominal-currency calculations: where verified stop, size, exchange-rate, or fee inputs were unavailable, monetary outcomes remained unknown. Virtual figures were not conflated with broker-account results.
+- Added multi-part execution safeguards, parity thresholds, bounded processing, backup/temporary-file retention, catalogue documentation, and an installation plan mode that described changes without applying them.
+- The release recorded 8/8 compiled targets with zero errors/warnings and extensive isolated/source/package audits. It was not installed into a live terminal; seed import, market behavior, broker acceptance, performance targets, full demo week, and profitability remained unverified.
+
+**Status:** Brain Office DEMO foundation; not 316 live-approved strategies, not LIVE authorization, and not a profitability claim.
+
+## 2026-11-09 — CP59.1 V1.2.1 / Brain Office V1.0.1
+
+V1.2.1 was an updated DEMO handoff that refined state recovery, user feedback, catalogue inspection, and installer preflight while preserving the prior release's database and component identity.
+
+- Made selected interface and mode readers tolerant of additional health metadata so an added status field would not interrupt mode interpretation.
+- When a module's counters could not be read, blocked its new entries temporarily, retried after readiness, and recorded a distinct halt reason if the read remained unavailable. Recovery evidence was retained rather than silently discarded.
+- Added chart/context checks and startup-state handling; preserved the existing execution core and added a narrowly scoped entry guard.
+- Improved display of multi-part exposure and risk, clarified normal market vetoes versus technical errors, and enabled operator close only when ownership could be verified.
+- Expanded catalogue cards with concise identity/version information and a detail view. Installer plan-only and deployment paths now share write-target checks; optional helper startup can be skipped with its result recorded when permission is unavailable.
+- Preserved provenance for owner-supplied records and used a separately redacted distribution copy where historical sensitive values were found; public changelog contains no such values or source archive.
+- The package recorded 8/8 build targets with zero errors/warnings and targeted interface/database checks. It was not installed into a terminal; interactive close/deactivate, source switching, full chart behavior, and live broker acceptance remained unverified.
+
+**Status:** DEMO handoff only; ARM and installation authorization remain separate owner decisions.
 ## 2026-11-13 — CP59.1 Hotfix 12 DEMO candidate
 
-The latest demo-candidate update focuses on reliability and diagnostics:
+Hotfix 12 focused on Brain Office health-queue recovery, Research event identity and evidence checks, execution-stage diagnostics, clearer counts, and status messaging. It retained the CP59.1 component version labels; the accompanying audit explicitly notes that version-label policy still needed follow-up.
 
-- Improved recovery behavior for Brain Office health processing so a stalled item does not prevent other eligible items from being processed.
-- Strengthened Research event identity reconciliation and validation of source data before accepting events.
-- Added more detailed timing diagnostics around Research and exit-processing stages to help investigate latency.
-- Improved handling of pending paper events and their ordering.
-- Clarified AutoTrader and Brain Office counts in the interface.
-- Refined Telegram PIN timeout handling and period/status messages.
+### Changes documented for HF12
 
-**Historical DEMO result (reported in the audit snapshot):** the weekly summary showed **+166.88 EUR**. The report did not specify the exact week boundaries. This is a historical demo-account figure, is not attributed to Hotfix 12, and is not a forecast or guarantee of future results.
+- **Health queue fairness:** separated current-day and prior-day processing cursors so one stalled item can be retried without preventing other eligible records from progressing. A read-only fixture processed 432 eligible keys, including work after a previously stalled item; historical replay-required cases were not automatically repaired.
+- **Research identity and input evidence:** aligned selected module identifiers with their versioned registry records and checked that a source tick had already been durably recorded before accepting its research event. Quote and associated context-time checks were retained.
+- **Performance diagnostics:** added stage-level measurements for selected research, signal, and exit-processing work, making bottlenecks easier to isolate. The audit still recorded multi-second stages in some cases, so the intended latency target was not demonstrated.
+- **Pending-event handling:** tied selected repeated-event recognition to a durable receipt and indexed pending work in order, reducing ambiguous replay behavior without inventing fills.
+- **Interface counts and status:** separated primary AutoTrader counts from additional Brain Office slots and clarified period labels. Unavailable or unverified history/health is shown as unknown or unconfirmed, not as a misleading zero-result summary.
+- **PIN/session messaging:** clarified timeout, invalid-entry, and temporary-block messages. This is presentation and workflow feedback, not a change to trading authorization.
+- **Cumulative history:** the release also included a change-history document covering earlier CP59.1 and HF1–HF11 work. Planned, implemented, isolated-tested, and live-accepted items remain distinct; the cumulative document is not evidence that every earlier item passed live acceptance.
 
-**Status:** DEMO candidate only. This update is not a LIVE authorization or a claim of full acceptance. Performance targets and several interactive terminal, replay, and end-to-end demo acceptance checks remain outstanding. Historical demo results are not a guarantee of future performance.
+### Evidence and acceptance limits
 
+- Package integrity and deployment-file matching were checked for the distributed copy. The recorded build receipts show zero errors for the targeted core builds; the Research build retained one compiler warning, so the release is not represented as an all-target zero-warning build.
+- Offline regressions covered health processing, event identity/data boundaries, selected presentation cases, and isolated message-workflow behavior. Test recipients and fixtures do not prove external network delivery.
+- The audit retained unresolved version/manifest inconsistencies and performance shortfalls, as well as history/replay, interactive UI, and end-to-end message/trade acceptance work.
+- No new live broker cycle or complete post-update acceptance was established by the HF12 package. Any historical demo summary is not attributed to this hotfix and is not a forecast or guarantee.
+
+**Status:** DEMO candidate only. Not a complete acceptance, LIVE authorization, or profitability claim.
 ## Publishing policy
 
+Each published private release tag is represented by its own reviewed, text-only public entry. These entries summarize change areas, scoped evidence, and known limits; they are not copies of private audit reports. This repository does not publish source code, package archives, credentials, account identifiers, broker records, private repository links, or claims that exceed the supporting evidence.
 Future entries will be added as reviewed, summary-only commits. No private source code, package archives, credentials, account or broker identifiers, or verbatim private audit logs should be published in this repository.
 
 ## 2026-11-21 — CP59.1 V1.2.23 DEMO candidate

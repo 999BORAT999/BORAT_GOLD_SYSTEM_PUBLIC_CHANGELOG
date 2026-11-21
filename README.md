@@ -37,3 +37,15 @@ This update focuses on reliability, processing efficiency, and clearer diagnosti
 The package includes offline regression and failure-recovery test evidence. These checks do not constitute full live-environment acceptance. Live DEMO timing, day-long health, and end-to-end helper acceptance remain outstanding.
 
 **Status:** DEMO candidate only; not a LIVE authorization or a claim of full acceptance. No performance or profitability claim is made in this entry.
+## 2026-11-22 — CP59.1 V1.2.24 DEMO candidate
+
+This update focuses on reliability and diagnostics:
+
+- Improved S8 input reconciliation around file-enumeration and rename races, with isolated restart and recovery regression coverage.
+- Corrected health-packet byte validation and verified publication of both full and summary packets in native fixtures.
+- Added EA1/EA2 stage-level timing and narrowly scoped checkpoint, maintenance, and retry improvements while preserving tested ordering.
+- Clarified readiness, empty-versus-error reporting, and Telegram polling failure diagnostics.
+
+Offline native regressions cover targeted cases only. One S8 journal-load test processed 133 of 150 planned inputs and missed three load criteria. Live DEMO acceptance and performance thresholds remain pending.
+
+**Status:** DEMO candidate only; not a LIVE authorization. No profitability claim is made.

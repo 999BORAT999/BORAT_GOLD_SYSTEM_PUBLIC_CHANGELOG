@@ -1,8 +1,60 @@
 # BORAT GOLD SYSTEM — public changelog
 
-This repository publishes curated, high-level summaries of project updates. The source code and release packages are kept in a separate private repository and are not published here.
+A detailed development record of a private MetaTrader 5 software project: BORAT Radar, AutoTrader, Research Bot Centrum and Brain Office. This record documents engineering work, package revisions, fixes, measured regressions, review findings and remaining acceptance work.
 
-This public changelog does not contain source files, downloadable builds, credentials, account identifiers, broker records, or private repository links. Each entry is reviewed and written specifically for public sharing; private release notes are not copied here verbatim.
+**Latest documented package: CP59.1 V1.2.26 — DEMO package candidate.** The package is not deployment-authorized; runtime acceptance remains pending and ARM is disabled. Newest package, publication status and completed runtime acceptance are separate facts.
+
+The source code, executable packages, private audit logs and distribution downloads remain private. Public technical descriptions, module identifiers, recovery mechanisms, scoped test results and performance measurements are intentionally retained. Credentials, account identifiers, private paths and private repository links are excluded.
+
+## Project work and development scope
+
+The work spans native MQL5 application components, persistent state and SQLite data handling, inter-component queues, operator interfaces, analytical catalogues, deployment/rollback tooling, Python and PowerShell verification, and external-message diagnostics. The release record shows both feature work and the less visible engineering needed to make recovery, evidence and operations auditable.
+
+| Work area | Documented engineering work |
+|---|---|
+| Radar and execution | Signal/context handoff, order and position identity, multi-leg handling, restart recovery, persistent risk state, execution priority and operator feedback. |
+| Research | Ordered source inputs, positive/negative evaluation evidence, native-versus-virtual result boundaries, historical gaps, explicit unknown costs and source/version provenance. |
+| Brain Office | Catalogue, detail cards, periods and source filters, analytics, TOP/EXIT work, comparison/export, health visibility and incremental processing. |
+| Reliability | Durable queues, transaction/ACK ordering, identity validation, interruption/restart fixtures, file-race handling, exact byte checks and bounded retry. |
+| Delivery | Full versioned packages, manifests and digests, installer preflight, backups/rollback, build receipts and documented compatibility boundaries. |
+| Verification | Controlled baseline/candidate comparisons, native RED/GREEN regressions, failure injection, focused reviews and explicit records of failed or outstanding acceptance gates. |
+
+These are documented project work areas, not a claim that every component was written from scratch, every catalogue record is a unique strategy, or every release passed live acceptance. Owner-supplied and historical dependencies retain their provenance. No development-hour estimate or aggregate test count is inferred from the number of releases.
+
+[Read the development overview and evidence guide](PROJECT_OVERVIEW.md).
+
+## Archive integrity check — 2026-11-22
+
+A fresh download of the private V1.2.26 distribution was checked against its published SHA-256 and checksum sidecar. ZIP CRC verification passed, and all 28,346 root-manifest entries matched their recorded sizes and SHA-256 values. The archive contains 28,347 file entries including the manifest itself, and the deployment tree contains 757 files. This verifies the downloaded distribution's integrity; it is not a new compilation or runtime acceptance test. No archive or source files are published here.
+
+## Version and release navigation
+
+All **16 currently published private release records** have a corresponding public entry below. This count does not imply that every intermediate working version was published. System versions, CP milestones, package revisions, hotfix labels and component versions identify different layers; R2–R8.1 are not automatically new strategy versions.
+
+| Release identifier | Main documented work |
+|---|---|
+| [v1.2.26-cp59.1-demo-candidate](#release-v1-2-26-cp59-1-demo-candidate) | Crash/restart projection recovery, cost provenance, exact-state serialization reuse, queue fairness, scanner semantics and release-guard validation. |
+| [v1.2.25-cp59.1-demo-candidate](#release-v1-2-25-cp59-1-demo-candidate) | Alert delivery uncertainty, GAP/raw-frontier fairness, Radar outbox and IPC durability, history-reader separation and telemetry repairs. |
+| [v1.2.24-cp59.1-demo-candidate](#release-v1-2-24-cp59-1-demo-candidate) | S8 read/rename reconciliation, byte-accurate health packets, checkpoint timing/reuse and bounded maintenance. |
+| [v1.2.23-cp59.1-demo-candidate](#release-v1-2-23-cp59-1-demo-candidate) | Incremental startup, durable HYBRID events, bounded EXIT/health work, ordered source delivery and negative-evaluation evidence. |
+| [v1.2.1-cp59.1-hf12](#release-v1-2-1-cp59-1-hf12) | Health-queue fairness, versioned Research identity, durable input evidence, timing diagnostics and cumulative HF1–HF11 history. |
+| [v1.2.1-cp59.1](#release-v1-2-1-cp59-1) | Lifecycle recovery, chart guards, operator-close ownership, catalogue detail and shared installer preflight. |
+| [v1.2.0-cp59-bo1.0](#release-v1-2-0-cp59-bo1-0) | Brain Office catalogue and analytics foundation, guarded adapters, Research feed and separate database ownership. |
+| [v1.1.118-cp58-r8.1](#release-v1-1-118-cp58-r8-1) | Execution priorities, history warm-up, EXIT policy consolidation, multi-leg recovery and safer deployment planning. |
+| [v1.1.118-cp58-r8-hotfix1](#release-v1-1-118-cp58-r8-hotfix1) | Immutable first HALT cause, durable close reasons, unknown-risk blocks and installer/recovery checks. |
+| [v1.1.118-cp58-r8](#release-v1-1-118-cp58-r8) | Execution/risk safeguards, health and timestamps, modeled costs, macro/news status and operational diagnostics. |
+| [v1.1.118-cp58-r7](#release-v1-1-118-cp58-r7) | Separated execution authority from Research, durable handoff, explicit gaps and restart reconciliation. |
+| [v1.1.118-cp58-r6](#release-v1-1-118-cp58-r6) | Research integration, state/cache precision, separate research cycles and EXIT persistence; owner exceptions remained. |
+| [v1.1.118-cp58-r5](#release-v1-1-118-cp58-r5) | Operator settings, persistent risk accounting, order journals, Research export and installer/rollback safeguards. |
+| [v1.1.118-cp58-r4](#release-v1-1-118-cp58-r4) | Narrow empty-state recovery correction, retained evidence and clearer storage failure reporting. |
+| [v1.1.118-cp58-r3](#release-v1-1-118-cp58-r3) | Package consistency revision and isolated installer verification; retained the approved deployment payload. |
+| [v1.1.118-cp58-r2](#release-v1-1-118-cp58-r2) | Initial complete CP58 handoff, deployment integrity, installer contracts and preserved project provenance. |
+
+**How to read dates:** entry dates describe the recorded milestone or public update. They can differ from the date a historical package was uploaded to GitHub. GitHub publication timestamps in the private release index are recorded separately; user-facing publication dates use Europe/Vilnius.
+
+**Evidence vocabulary:** implemented = a described software change; fixture PASS = the recorded scenario passed in its stated environment; build/equivalence receipt = a rebuild or verified unchanged binary; runtime acceptance = the specified integrated terminal observation. These are not interchangeable. Planned, deferred, UNKNOWN and NOT_PASS work remains explicitly identified.
+
+<a id="release-v1-1-118-cp58-r2"></a>
 
 ## 2026-10-25 — CP58 R2 package candidate
 
@@ -35,6 +87,9 @@ CP58 R2 established the first complete versioned handoff for the V1.1.118 / CP58
 
 **Status:** archived DEMO handoff; not LIVE authorization or a profit claim.
 
+
+<a id="release-v1-1-118-cp58-r3"></a>
+
 ## 2026-10-26 — CP58 R3 package revision
 
 R3 republished the full CP58 handoff with stronger package-level consistency checks. It is a package revision, not a separate strategy release.
@@ -54,6 +109,9 @@ R3 republished the full CP58 handoff with stronger package-level consistency che
 - The temporary target did not change the owner's terminal. Market replay, broker execution, and long-duration performance were not established.
 
 **Status:** package-integrity revision only; not a live acceptance.
+
+
+<a id="release-v1-1-118-cp58-r4"></a>
 
 ## 2026-10-26 — CP58 R4 recovery hotfix
 
@@ -77,6 +135,9 @@ R4 addressed a narrowly defined recovery case in which a valid empty initial sta
 - Tests used isolated local data; no live account, broker order, full market replay, long-duration load test, or owner-terminal installation was part of R4 acceptance.
 
 **Status:** targeted recovery correction; not a LIVE or profitability certification.
+
+
+<a id="release-v1-1-118-cp58-r5"></a>
 
 ## 2026-10-28 — CP58 R5 infrastructure update
 
@@ -115,6 +176,9 @@ R5 concentrated on operator settings, durable risk and order records, research d
 
 **Status:** infrastructure and workflow update; not LIVE authorization or a profitability claim.
 
+
+<a id="release-v1-1-118-cp58-r6"></a>
+
 ## 2026-11-02 — CP58 R6 DEMO package (owner-exception status)
 
 R6 expanded research integration and state restoration while documenting where original strategy behavior, virtual research, and broker execution must remain distinct.
@@ -144,6 +208,9 @@ R6 expanded research integration and state restoration while documenting where o
 
 **Status:** constrained DEMO package with explicit owner exceptions; no live-performance or profitability claim.
 
+
+<a id="release-v1-1-118-cp58-r7"></a>
+
 ## 2026-11-05 — CP58 R7 execution separation
 
 R7 introduced a clearer separation between the component responsible for AutoTrader/Radar operation and a separate non-trading research worker.
@@ -171,6 +238,9 @@ R7 introduced a clearer separation between the component responsible for AutoTra
 - The 200 ms tick and 250 ms timer goals were not met; one-hour queue observation was cancelled. No physical second-worker acceptance, full live order campaign, ARM-enabled trade, or complete live performance acceptance was established.
 
 **Status:** execution/data-boundary update; key latency and live acceptance gates remained open.
+
+
+<a id="release-v1-1-118-cp58-r8"></a>
 
 ## 2026-11-06 — CP58 R8 DEMO candidate
 
@@ -219,6 +289,9 @@ R8 combined execution safeguards, research-data quality work, health reporting, 
 
 **Status:** DEMO candidate; package and targeted checks are not equivalent to full runtime acceptance.
 
+
+<a id="release-v1-1-118-cp58-r8-hotfix1"></a>
+
 ## 2026-11-06 — CP58 R8 Hotfix 1
 
 This hotfix focused on state recovery, explicit risk handling, health freshness, and installer/verifier safeguards. It did not introduce new strategy rules.
@@ -244,6 +317,9 @@ This hotfix focused on state recovery, explicit risk handling, health freshness,
 - A later NULL-versus-empty health queue fix was a distinct follow-up, not part of this Hotfix 1 archive.
 
 **Status:** narrow reliability hotfix; live installation, full-day health, external messaging, and broker acceptance remained outstanding.
+
+
+<a id="release-v1-1-118-cp58-r8-1"></a>
 
 ## 2026-11-07 — CP58 R8.1 package
 
@@ -288,6 +364,9 @@ R8.1 extended R8/Hotfix1 across execution scheduling, research/exit analysis, da
 - TOP/EXIT numerical parity remained unvalidated; unavailable costs and historical gaps stayed unknown. This was not a profitability or LIVE certificate.
 
 **Status:** final R8.1 package handoff, not proof of live acceptance, profitability, or LIVE authorization.
+
+
+<a id="release-v1-2-0-cp59-bo1-0"></a>
 
 ## 2026-11-07 — CP59 BO1.0 / V1.2.0 Brain Office foundation
 
@@ -347,6 +426,9 @@ CP59 introduced the first Brain Office component and a broad catalogue/analytics
 
 **Status:** Brain Office DEMO foundation; not 316 live-approved strategies, not LIVE authorization, and not a profitability claim.
 
+
+<a id="release-v1-2-1-cp59-1"></a>
+
 ## 2026-11-09 — CP59.1 V1.2.1 / Brain Office V1.0.1
 
 V1.2.1 was an updated DEMO handoff that refined state recovery, user feedback, catalogue inspection, and installer preflight while preserving the prior release's database and component identity.
@@ -388,6 +470,9 @@ V1.2.1 was an updated DEMO handoff that refined state recovery, user feedback, c
 - ARM and installation authorization remained separate owner decisions; this handoff was not LIVE authorization or profitability evidence.
 
 **Status:** DEMO handoff only; ARM and installation authorization remain separate owner decisions.
+
+<a id="release-v1-2-1-cp59-1-hf12"></a>
+
 ## 2026-11-13 — CP59.1 Hotfix 12 DEMO candidate
 
 Hotfix 12 focused on Brain Office health-queue recovery, Research event identity and evidence checks, execution-stage diagnostics, clearer counts, and status messaging. It retained the CP59.1 component version labels; the accompanying audit explicitly notes that version-label policy still needed follow-up.
@@ -431,10 +516,8 @@ The release also carries forward a long CP59.1 hotfix history. These are histori
 - The audit retained unresolved multi-second work stages, a performance target shortfall, replay/history items, post-update UI scenarios, external-message receipt, and a fresh broker OPEN/CLOSE cycle. These remain acceptance items, not completed features.
 
 **Status:** DEMO candidate only. Not a complete acceptance, LIVE authorization, or profitability claim.
-## Publishing policy
 
-Each published private release tag is represented by its own reviewed, text-only public entry. These entries summarize change areas, scoped evidence, and known limits; they are not copies of private audit reports. This repository does not publish source code, package archives, credentials, account identifiers, broker records, private repository links, or claims that exceed the supporting evidence.
-Future entries will be added as reviewed, summary-only commits. No private source code, package archives, credentials, account or broker identifiers, or verbatim private audit logs should be published in this repository.
+<a id="release-v1-2-23-cp59-1-demo-candidate"></a>
 
 ## 2026-11-21 — CP59.1 V1.2.23 DEMO candidate
 
@@ -509,6 +592,9 @@ V1.2.23 is a broad reliability and observability update. It targets bounded star
 - No primary broker statement for the reviewed week was available in the analysis, so no weekly trade count or P/L is asserted. Offline fixtures are not real trading results.
 
 **Status:** DEMO candidate only. Targeted offline regressions provide evidence for specific paths; full live acceptance, performance thresholds, and weekly profitability are not claimed.
+
+<a id="release-v1-2-24-cp59-1-demo-candidate"></a>
+
 ## 2026-11-22 — CP59.1 V1.2.24 DEMO candidate
 
 V1.2.24 continues the CP59.1 work with a focus on reliable S8 input recovery, exact health-packet publication, bounded EA1/EA2 maintenance, and clearer readiness diagnostics. It is a DEMO candidate, not an accepted live release: targeted native tests cover specific cases, while the full live acceptance gates remain open.
@@ -563,6 +649,9 @@ V1.2.24 continues the CP59.1 work with a focus on reliable S8 input recovery, ex
 - No broker statement was available for a validated weekly profit calculation. No weekly P/L or profitability claim is made.
 
 **Status:** DEMO candidate only; offline regressions cover targeted cases, not full live acceptance or LIVE authorization.
+
+<a id="release-v1-2-25-cp59-1-demo-candidate"></a>
+
 ## 2026-11-22 — CP59.1 V1.2.25 DEMO candidate
 
 This update focuses on durable event handling, health visibility, and bounded maintenance:
@@ -616,6 +705,9 @@ The package contains targeted offline regressions and a later repair set, but th
 - Some historical data gaps and a missing exact macro endpoint remained unresolved. No weekly P/L or profitability claim is made.
 
 **Status:** private DEMO candidate only; `release_ready=false`, live acceptance remains pending, ARM stays manual/off, and this is not LIVE authorization. No profitability claim is made.
+
+
+<a id="release-v1-2-26-cp59-1-demo-candidate"></a>
 
 ## 2026-11-22 — CP59.1 V1.2.26 DEMO package candidate
 
@@ -693,3 +785,8 @@ This update focuses on recovery correctness, bounded processing, and stronger ev
 - No profitability, weekly P/L, or LIVE authorization is claimed.
 
 **Status:** private DEMO package candidate only; not LIVE authorization.
+
+## Publishing policy
+
+Each published private release tag is represented by its own reviewed, text-only public entry. These entries summarize change areas, scoped evidence, and known limits; they are not copies of private audit reports. This repository does not publish source code, package archives, credentials, account identifiers, raw broker records, private repository links, or claims that exceed the supporting evidence.
+Future entries will be added as reviewed, detailed text-only commits. No private source code, package archives, credentials, account or broker identifiers, or verbatim private audit logs should be published in this repository.

@@ -96,9 +96,42 @@ The work is documented as software engineering and controlled verification. No v
 
 ## Independent archive check — 2026-11-22
 
-The V1.2.26 private distribution was freshly downloaded and its 461,519,154 bytes matched the GitHub asset SHA-256 and checksum sidecar. ZIP CRC verification passed. All 28,346 root-manifest entries matched by size and SHA-256; the manifest itself is the one unlisted member among 28,347 file entries. No duplicate or unsafe archive paths were found. The deployment tree contains 757 files.
+The review was extended from the latest package to **all 16 recommended archived release ZIPs**. Every downloaded canonical archive matched its GitHub SHA-256 and size, and every ZIP CRC check passed. Checksum sidecars were compared where available. Fifteen full-package manifests passed. CP58 R2 uses a separate deployment manifest: all 141 deployment files passed; its other 1,570 archive files are outside that manifest's coverage, with the outer ZIP digest and CRC still verified.
 
-A private Git baseline now preserves 694 unchanged MQL5 source files from that verified deployment tree. This creates a current point for subsequent code comparison; it does not reconstruct missing historical commits or publish project code. The original unredacted ZIP was not available for a fresh comparison, other historical ZIPs were not rechecked byte-for-byte in this pass, and historical build/runtime tests were not rerun.
+| Release | Archive bytes | Manifest scope | Verified manifest entries |
+|---|---:|---|---:|
+| v1.2.26-cp59.1-demo-candidate | 461519154 | Full package | 28346 |
+| v1.2.25-cp59.1-demo-candidate | 460993790 | Full package | 28219 |
+| v1.2.24-cp59.1-demo-candidate | 459705291 | Full package | 27809 |
+| v1.2.23-cp59.1-demo-candidate | 459470721 | Full package | 27748 |
+| v1.2.1-cp59.1-hf12 | 425054565 | Full package | 25918 |
+| v1.2.1-cp59.1 | 424286543 | Full package | 25808 |
+| v1.2.0-cp59-bo1.0 | 396000568 | Full package | 25718 |
+| v1.1.118-cp58-r8.1 | 325734732 | Full package | 24461 |
+| v1.1.118-cp58-r8-hotfix1 | 147249203 | Full package | 22407 |
+| v1.1.118-cp58-r8 | 145517004 | Full package | 22192 |
+| v1.1.118-cp58-r7 | 132487368 | Full package | 20801 |
+| v1.1.118-cp58-r6 | 136185769 | Full package | 20562 |
+| v1.1.118-cp58-r5 | 68103810 | Full package | 6405 |
+| v1.1.118-cp58-r4 | 60105267 | Full package | 6153 |
+| v1.1.118-cp58-r3 | 53315423 | Full package | 6076 |
+| v1.1.118-cp58-r2 | 32281537 | Deployment only | 141 |
+
+These are per-archive verification records. Historical material can be repeated across packages; the figures are not counts of unique new source files, features, development hours or functional tests.
+
+### A packaging defect detected and corrected
+
+The initial CP59 / V1.2.0 distribution passed its outer digest and CRC checks but failed 13 root-manifest size/hash rows. Its release record documented an earlier privacy redaction of 13 historical documents; their manifest metadata had not followed those changes.
+
+A separately named corrected distribution updates only MANIFEST.json. All **25,718 non-manifest file contents**, including all **675 deployment files**, are byte-identical to the previous redacted copy. The corrected ZIP and its checksum pass validation. The original redacted distribution remains private and unchanged, and the release index now explicitly distinguishes the recommended canonical ZIP from retained earlier copies. No component version, strategy code or acceptance state was changed.
+
+The failed original audit and its correction evidence remain recorded. This is an example of verification identifying and fixing delivery metadata, rather than relabeling a failing result as a pass.
+
+### Current source baseline and verification limits
+
+A private Git baseline preserves **694 unchanged MQL5 source files** from the verified V1.2.26 deployment tree. This creates a current point for subsequent code comparison; it does not reconstruct missing historical commits or publish project code.
+
+No package programs or installers were run for the archive checks. Historical compilation and MT5 acceptance tests were not rerun. Nested historical ZIPs were not independently expanded or executed, unavailable original unredacted archives were not newly compared, and the audit is not a guarantee that every possible secret has been detected.
 
 ## Public documentation policy
 

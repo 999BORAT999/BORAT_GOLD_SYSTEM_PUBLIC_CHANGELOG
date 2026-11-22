@@ -25,7 +25,11 @@ These are documented project work areas, not a claim that every component was wr
 
 ## Archive integrity check — 2026-11-22
 
-A fresh download of the private V1.2.26 distribution was checked against its published SHA-256 and checksum sidecar. ZIP CRC verification passed, and all 28,346 root-manifest entries matched their recorded sizes and SHA-256 values. The archive contains 28,347 file entries including the manifest itself, and the deployment tree contains 757 files. This verifies the downloaded distribution's integrity; it is not a new compilation or runtime acceptance test. No archive or source files are published here.
+All **16 recommended release ZIPs** were freshly downloaded and matched their GitHub SHA-256 digests, byte sizes and ZIP CRC checks. Attached checksum sidecars were checked where present. **15 full-package manifests** passed; CP58 R2 instead has a separate deployment manifest, whose **141 deployment files** passed. That R2 manifest does not cover the archive's other 1,570 files, although the outer archive digest and CRC were verified.
+
+The audit found a real CP59 / V1.2.0 packaging issue: 13 historical-document size/hash rows had become stale after an earlier privacy redaction. A separate corrected distribution now updates only the root manifest. All 25,718 other file contents, including all 675 deployment files, remain byte-identical to the previous redacted distribution. The previous ZIP and checksum remain retained privately for provenance; the corrected copy is explicitly identified as the recommended download.
+
+This is archive maintenance, not a new software/strategy version, compilation, terminal installation, runtime acceptance or profitability result. No package code or installer was executed for these checks. The full failed initial audit is retained privately alongside the correction evidence; a later PASS does not erase the detected issue.
 
 ## Version and release navigation
 
@@ -369,6 +373,9 @@ R8.1 extended R8/Hotfix1 across execution scheduling, research/exit analysis, da
 <a id="release-v1-2-0-cp59-bo1-0"></a>
 
 ## 2026-11-07 — CP59 BO1.0 / V1.2.0 Brain Office foundation
+
+**Archive maintenance — 2026-11-22:** a subsequent full byte audit found 13 stale root-manifest size/hash entries for historical documents changed during privacy redaction. A separately named corrected ZIP updates only the manifest; every other file, including all 675 deployment files, is preserved byte-for-byte. The previous distribution and digest remain retained privately. This is a packaging correction, not a new application build, source change or runtime acceptance.
+
 
 CP59 introduced the first Brain Office component and a broad catalogue/analytics foundation while preserving compatibility with the prior execution and research state. The headline catalogue coverage is not a count of strategies proven profitable or approved for live execution.
 

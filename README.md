@@ -793,6 +793,90 @@ This update focuses on recovery correctness, bounded processing, and stronger ev
 
 **Status:** private DEMO package candidate only; not LIVE authorization.
 
+
+<a id="release-v1-2-27-cp59-1-installer-hotfix-1-demo-candidate"></a>
+
+## 2026-11-22 — CP59.1 V1.2.27 Installer Hotfix 1 DEMO candidate
+
+Šis atskiras pataisymas skirtas tik esamų suplanuotų užduočių saugiam atpažinimui atnaujinimo metu; jis nekeičia prekybos strategijų ar sukompiliuotų prekybos programų.
+
+- **Problema:** „Windows“ užduočių planuoklis tą patį naudotoją gali pateikti trumpuoju arba pilnu vardu. Ankstesnis diegiklio palyginimas galėjo atmesti teisėtą esamos užduoties perkėlimą, nors paskyra buvo ta pati.
+- **Pakeitimas:** tapatybė tikrinama pagal Windows saugos identifikatorių (SID), o ne vien pagal rodomo vardo tekstą. Tikrinamas vykdantis naudotojas, planuoklio užduoties savininkas ir eksportuoto veiksmo naudotojas; papildomai sutikrinamas vykdomasis failas, argumentai bei darbinis katalogas.
+- **Saugus atsisakymas:** kitos paskyros, grupės, neatitinkantis veiksmas ar nepakankami tapatybės įrodymai sustabdo migraciją, užuot perėmę nepatikrintą užduotį.
+- **Patikra:** Windows PowerShell 5.1 aplinkoje atlikti 24 teigiami ir neigiami patikros atvejai su esamų užduočių pavyzdžiais. Patikros jų nekeičia; tai įrodo guard logiką, bet ne pilną atnaujinimą kiekvienoje Windows konfigūracijoje.
+- **Apimtis:** pakeista diegiklio užduočių migracijos apsauga ir jos kopijos; visi 13 prekybos vykdomųjų failų ir jų logika palikti tokie patys kaip V1.2.27 bazėje.
+
+**Priėmimo ribos:** tai ribotos apimties diegiklio DEMO pataisa, ne visos sistemos ar gyvo prekybos priėmimo įrodymas. ARM lieka savininko rankinis sprendimas.
+
+<a id="release-v1-2-27-cp59-1-telegram-hotfix-2-demo-candidate"></a>
+
+## 2026-11-22 — CP59.1 V1.2.27 Telegram Hotfix 2 DEMO candidate
+
+Šis atskiras HF2 tęsia HF1 paketą ir taiso viešo Telegram pranešėjo paleidimo/diagnostikos koduotę Windows aplinkoje; jis nekeičia prekybos signalų, ARM ar privačių vykdytojų.
+
+- **Problema:** foninis `pythonw.exe` procesas Windows aplinkoje galėjo paveldėti seną konsolės koduotę. Lietuviškas simbolis paleidimo ar diagnostikos išvestyje sukeldavo `UnicodeEncodeError`, todėl foninis siuntėjas arba `--check` režimas nutrūkdavo prieš įprastą darbą.
+- **Pakeitimas:** foniniame režime nebūtina paleidimo eilutė praleidžiama; nukreipta standartinė išvestis ir klaidos naudoja UTF-8. Interaktyvi konsolė išsaugo jos turimą koduotę, o diagnostikos režimas pateikia UTF-8 tekstą.
+- **Apimtis:** atnaujintas viešo siuntėjo šaltinis ir jo diegimo kopija; kartu atnaujinta su manifestais ir leidimo apsauga susijusi patikra. HF1 diegiklio elgsena ir prekybos komponentai išlaikyti.
+- **Patikra:** Windows `pythonw.exe` paleidimas patikrintas izoliuotoje aplinkoje su imituotu tinklu ir publikavimu. Prieš pataisą klaida atkartota, po pataisos foninis režimas pasiekė publikavimo ciklą, o `--check` grąžino UTF-8 tekstą. Penkių bandomųjų įvesčių turinys nepakito; realių žinučių išsiųsta 0.
+
+**Priėmimo ribos:** tai nėra tikro Telegram rakto, išsiųstų pranešimų, automatinio paleidimo po Windows perkrovimo ar viso DEMO veikimo patvirtinimas. Jautrūs prisijungimo duomenys viešame įraše ar pakete neskelbiami.
+
+<a id="release-v1-2-28-cp59-1-demo-candidate"></a>
+
+## 2026-11-22 — CP59.1 V1.2.28 DEMO package candidate
+
+V1.2.28 tęsiama nuo V1.2.27 HF2. Pagrindinės kryptys – saugesnė modulių archyvavimo patikra, tikslesnis EA grafiko atpažinimas ir „Telegram“ vykdytojų gyvybingumo priežiūra.
+
+- **EA2 registro apsauga:** prieš archyvuojant modulį tikrinamas savininko kvitas, konkreti versija, šaltinio atspaudas, registro įrašas ir priskirtas „magic“ numeris. Sąrašai lyginami pagal tapatybę; nepatvirtintas naujas įrašas neįtraukiamas automatiškai.
+- **Archyvavimo vientisumas:** SQL patikros aprėpia įprastą archyvavimą, pakartotinį duomenų bazės atidarymą ir netinkamo savininko, pakeisto boto ar neatitinkančio identifikatoriaus atmetimą.
+- **Grafiko atpažinimas:** EA1 ir EA2 aiškiau registruoja savo vaidmenį konkrečioje vykdymo aplinkoje. Aptiktas grafikas atskiriamas nuo grafiko, kurio veikimas patvirtintas; tai sumažina poreikį įprastame stebėtojo cikle sinchroniškai ieškoti svetimo eksperto.
+- **Priežiūra ir atkūrimas:** stebėtojas tikrina terminalo, paskyros, serverio ir simbolio kontekstą, taip pat sveikatos signalą prieš atkuriant grafiką. Tikrinta pasikartojanti registracija, dingęs signalas, užimtas rašymo kelias, dingęs grafikas ir pakartotinio paleidimo riba.
+- **Patikros rezultatai:** 37/37 registro SQL atvejų pateikė tikėtiną rezultatą; 23/23 registracijos imitacijų praėjo; dviem MT5 grafikais teisingas grafikas rastas 10/10 bandymų. 13 programų kompiliacija turėjo 0 klaidų ir 0 įspėjimų.
+
+**Priėmimo ribos:** užfiksuotas ankstesnio HF2 proceso pasenęs būsenos signalas neįrodo vienos konkrečios strigimo priežasties. Reikalinga diegimo ir ilgesnio veikimo patikra DEMO aplinkoje; ARM ir brokerio būseną savininkas tikrina atskirai. Tai nėra LIVE leidimas.
+
+<a id="release-v1-2-29-cp59-1-demo-candidate"></a>
+
+## 2026-11-26 — CP59.1 V1.2.29 DEMO package candidate
+
+V1.2.29 sujungia patikrintus komponentų ir duomenų apdorojimo pakeitimus į atskirą DEMO paketą. Leidimas uždarytas savininko sprendimu pagal tuo metu turėtus įrodymus, o ne pagal teiginį, kad visi planuoti bandymai praėjo.
+
+- **Komponentų atnaujinimas:** suderintos EA1, EA2, EA3, saugaus Telegram, AutoTrader, Brain Office, Radar ir diegiklio versijos. Įtraukti atskiri istorijos skaitymo, atsarginės kopijos patikros ir IPC archyvavimo komponentai.
+- **IPC archyvavimas:** išsaugota vieno rašytojo taisyklė, patvarūs kvitai ir patvirtinimo tvarka. Pakartojimo, nutrūkimo/tęsimo, 1 000 įrašų ir ZIP vientisumo bandymai tikrina, kad tęsiant nebūtų tyliai praleidžiami ar dubliuojami įrašai.
+- **Užduočių perdavimas ir duomenų kilmė:** ataskaitos atskiria patikrintus rezultatus nuo savininko atidėtų, gyvame DEMO tikrintinų darbų. Trūkstami sandorio dydžio, valiutos ar kaštų faktai lieka nežinomi, o ne paverčiami spėjamu piniginiu rezultatu.
+- **Diegimo paruošimas:** atnaujinimo paketas ir diegiklio kelio ribos patikrinti nekeičiant įdiegtos MT5 aplinkos, prisijungimų, ARM ar Windows nustatymų.
+- **Patikros būklė:** pateikti 16 produkto programų kompiliacijos be klaidų ir įspėjimų įrodymai bei pakartotinai panaudoti konkrečiai kvalifikuoti ankstesni rezultatai. Po galutinio savininko uždarymo sprendimo naujų produkto bandymų nepaleista.
+
+**Atidėta / nepatvirtinta:** komandų viso atsako laikas su eile, dalis Brain Office/UI matavimų, keli atkūrimo ir atsarginių kopijų bandymai, dalis ilgalaikio DEMO ir duomenų pilnumo patikrų. Jie perkelti į gyvą DEMO po atskiro savininko diegimo ar į vėlesnį leidimą. Šis paketas neįrodo visų etalonų, pelningumo ar LIVE parengties.
+
+<a id="release-v1-2-30-cp59-1-demo-candidate"></a>
+
+## 2026-11-26 — CP59.1 V1.2.30 DEMO hotfix candidate
+
+V1.2.30 yra tikslinis V1.2.29 tęsinys, nagrinėjantis checkpoint/atkūrimo klaidas, EA1 delsų priežasčių matavimą ir EA2 RAW/GAP apdorojimo sąnaudas. Pakeitimai sąmoningai išlaiko esamas saugos, ARM ir boto strategijų taisykles.
+
+- **Checkpoint ir atšaukimas:** patikslintas to paties nepakitusio laukiančio įrašo atpažinimas bei paruošto checkpoint perkėlimas. Atšaukimo diagnostika rodo priežastį; galiojančios nuosavybės, kelio, kvietėjo, tęsinio ir perkėlimo apsaugos išlieka. Kooperatyvus apdorojimas turi ribotą darbų porciją, bet viena lėta natyvi operacija vis tiek gali užtrukti ilgiau.
+- **EA1/Radar stebėsena:** pridėti anksčiau nematuotų etapų ir pasikartojančios neigiamo įrodymo formavimo apkrovos tikslinimo pakeitimai, kad lėtas callback būtų suskaidytas į stebimus darbus. Iš užfiksuoto žurnalo nebuvo galima patikimai priskirti visos delsos vienam etapui; nepagrįstas cache ar strategijos pakeitimas neįvestas.
+- **EA2 RAW saugojimas:** laiko biudžetas tikrinamas tarp jau eilės tvarka apdorojamų eilučių, išlaikant patvarų įrašymą ir sekos poziciją. Tęsiant darbą įrašai nepraleidžiami ir neperrikiuojami.
+- **EA2 GAP užklausos:** pridėti indeksai ir tiksliniai pakartotinio GAP apdorojimo patikslinimai, išlaikant esamus sprendimo kriterijus, transakcijas bei nepriklausomo S8 kelio atskyrimą.
+- **Patikros:** 16 produkto programų kompiliuotos be klaidų ir įspėjimų; atlikti pakeistų šakų RED/GREEN, SQL ir ribinių atvejų bandymai. Iš 128 eilučių valdomo adapterio bandymo matyti mažesnė vieno callback darbo dalis, tačiau tai nėra natyvaus disko greičio ar gyvo MT5 SLA matavimas.
+
+**Priėmimo ribos:** gyvo delsos p95/maksimumo ar viso DEMO veikimo priėmimas nepatvirtintas. Esamas `RECOVERY_WRITE_FAILED` HALT automatiškai neišvalomas; diegimą ir ARM būseną valdo savininkas. Tikslinis hotfix paketas nepaverčia ankstesnių atidėtų darbų užbaigtais.
+
+<a id="release-v1-2-31-cp59-1-demo-candidate"></a>
+
+## 2026-11-26 — CP59.1 V1.2.31 DEMO hotfix candidate
+
+V1.2.31 tęsia V1.2.30 ir pataiso tris siaurus vykdymo kelius – GAP užklausų darbų tvarką, RAW pirmos eilutės progresą ir AutoTrader UI objekto sukūrimo patvirtinimą. Paketas aiškiai lieka kandidatu, ne gyvo priėmimo PASS.
+
+- **GAP užklausos:** po indekso įvedimo duomenų bazės planuotojas galėjo pradėti nuo didelės istorinių rezultatų aibės, nors užklausa turėjo apdoroti riboto puslapio duomenis. Pakeitimai priverčia COUNT, READ ir audito įrašymo kelius išlaikyti puslapio pirmumo tvarką, nekeičiant rezultatų, kursoriaus ar transakcinių taisyklių.
+- **RAW pirmos eilutės progresas:** jei istorijos nuskaitymas ar segmento paruošimas išeidavo už bendro ciklo biudžeto, pirmoji jau patikrinta eilutė galėjo būti nuolat atidedama. Dabar ji užbaigiama, o kursorius pajudinamas tik po patvaraus įrašymo. Uždelsimo, pakartojimo, klaidos, tos pačios milisekundės ir dienos ribos atvejai tikrinti valdomais adapteriais.
+- **UI objekto sukūrimas:** tėvinis procesas po esamų savininko, kartos, kadro ir mygtuko patikrų tik pateikia sukūrimo užklausą. UI vykdytojas patvirtina kvitą, atlieka tikrą objekto paiešką ir dar kartą tikrina kartą; tarpinis nepatvirtintas kvitas nelaikomas paruoštu objektu. Prekybos ar ARM teisė UI vykdytojui nesuteikiama.
+- **Delsų diagnostika:** papildytas EA1 lėto grafiko callback įvykio ID ir EA2 lėto timer didžiausio etapo, RAW nuskaitymo/materializavimo, grafiko registracijos bei lentelės augimo matavimas. Tai stebėsena, ne darbo sekos ar strategijų pakeitimas.
+- **Patikros rezultatai:** 120 000 eilučių izoliuotas SQLite bandymas patvirtino išvesties ir audito paritetą bei commit/rollback elgseną; COUNT etalonas sumažėjo nuo 1 319 500 iki 300 VM žingsnių konkrečiame „no-match“ fixture. UI ribų bandymai turėjo 17/17 žalių ir 16/16 raudonų assertionų. 16 produkto programų kompiliuotos be klaidų ir įspėjimų.
+
+**Priėmimo ribos:** šie rezultatai yra tikslinių, izoliuotų SQL/adapterių ir valdomų UI ribų bandymų įrodymai – ne gyvo MT5 delsos, viso RAW srauto pilnumo ar pilnos DEMO sesijos patvirtinimas. EA1 viso atsako kriterijai ir ankstesni atidėti darbai lieka atviri; saugos, ARM ir boto strategijų taisyklės nepakeistos.
+
 ## Publishing policy
 
 Each published private release tag is represented by its own reviewed, text-only public entry. These entries summarize change areas, scoped evidence, and known limits; they are not copies of private audit reports. This repository does not publish source code, package archives, credentials, account identifiers, raw broker records, private repository links, or claims that exceed the supporting evidence.
